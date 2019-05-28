@@ -36,25 +36,25 @@ function [b, AFC, pass_err, supp_err] = synthesize_filter(pass_band, supp_band, 
 %         plot(w, Kd0, 'r*--');
 %         fplot(A0, [0, pi]);
 
-        % ----- Линейная шкала ----- %
+        % ----- Р›РёРЅРµР№РЅР°СЏ С€РєР°Р»Р° ----- %
         figure, hold on, grid on
 
-        % AЧХ
+        % AР§РҐ
         plot(w, Kd, 'b*');
         fplot(AFC, [-pi, 2*pi], 'b', 'LineWidth', 1);
 
-        % идеальная АЧХ
+        % РёРґРµР°Р»СЊРЅР°СЏ РђР§РҐ
         IAFC = @(w) 1 - heaviside(w - (pass_band(2) + supp_band(1))/2);
         fplot(IAFC, [-pi, 2*pi], 'm', 'LineWidth', 1);
 
-        title('Оптимальная АЧХ')
+        title('РћРїС‚РёРјР°Р»СЊРЅР°СЏ РђР§РҐ')
         xlabel('w'), ylabel('|K(w)|')
-        legend('w_jопт', 'Оптимальная АЧХ', 'Идеальная АЧХ')
+        legend('w_jРѕРїС‚', 'РћРїС‚РёРјР°Р»СЊРЅР°СЏ РђР§РҐ', 'РРґРµР°Р»СЊРЅР°СЏ РђР§РҐ')
         
         line([pass_band(2) pass_band(2)], [-0.1 1.1])
         line([supp_band(1) supp_band(1)], [-0.1 1.1])
 
-        % ----- Логарифмическая шкала ----- %
+        % ----- Р›РѕРіР°СЂРёС„РјРёС‡РµСЃРєР°СЏ С€РєР°Р»Р° ----- %
         figure, hold on, grid on
 
         w_ = -pi:pi/50:2*pi;
@@ -62,10 +62,10 @@ function [b, AFC, pass_err, supp_err] = synthesize_filter(pass_band, supp_band, 
         AFC_(AFC_ < 10^-7) = 10^-7;
         AFC_log = 20*log10(AFC_);
 
-        % AЧХ
+        % AР§РҐ
         plot(w_, AFC_log, 'b', 'LineWidth', 1);
 
-        title('Оптимальная АЧХ')
+        title('РћРїС‚РёРјР°Р»СЊРЅР°СЏ РђР§РҐ')
         xlabel('w'), ylabel('20lg|K(w)/C|')
     end
     
