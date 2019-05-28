@@ -1,11 +1,11 @@
-%% Данные варианта
+%% Р”Р°РЅРЅС‹Рµ РІР°СЂРёР°РЅС‚Р°
 
 M = 5;
 
 pass_band = [0 0.6]*pi;
 supp_band = [0.8 1]*pi;
 
-%% задание 1
+%% Р·Р°РґР°РЅРёРµ 1
 
 j = 0:1:M;
 w = pi * (j + 0.5) / (M + 1);
@@ -23,22 +23,22 @@ Kd = [Kd_p Kd_t Kd_s];
 b = find_b(Kd, w, M);
 [AFC, AFC1] = build_AFC(b, M);
 
-% ----- Линейная шкала ----- %
+% ----- Р›РёРЅРµР№РЅР°СЏ С€РєР°Р»Р° ----- %
 figure, hold on, grid on
 
-% AЧХ
+% AР§РҐ
 plot(w, Kd, 'b*');
 fplot(AFC, [-pi, 2*pi], 'b', 'LineWidth', 1);
 
-% идеальная АЧХ
+% РёРґРµР°Р»СЊРЅР°СЏ РђР§РҐ
 IAFC = @(w) 1 - heaviside(w - (pass_band(2) + supp_band(1))/2);
 fplot(IAFC, [-pi, 2*pi], 'm', 'LineWidth', 1);
 
-title('АЧХ')
+title('РђР§РҐ')
 xlabel('w'), ylabel('|K(w)|')
-legend('w_j', 'АЧХ', 'Идеальная АЧХ')
+legend('w_j', 'РђР§РҐ', 'РРґРµР°Р»СЊРЅР°СЏ РђР§РҐ')
 
-% ----- Логарифмическая шкала ----- %
+% ----- Р›РѕРіР°СЂРёС„РјРёС‡РµСЃРєР°СЏ С€РєР°Р»Р° ----- %
 figure, hold on, grid on
 
 w_ = -pi:pi/50:2*pi;
@@ -46,24 +46,24 @@ AFC_ = AFC(w_);
 AFC_(AFC_ < 10^-7) = 10^-7;
 AFC_log = 20*log10(AFC_);
 
-% AЧХ
+% AР§РҐ
 plot(w_, AFC_log, 'b', 'LineWidth', 1);
 
-title('АЧХ')
+title('РђР§РҐ')
 xlabel('w'), ylabel('20lg|K(w)/C|')
 
-% ----- ФЧХ ----- %
+% ----- Р¤Р§РҐ ----- %
 figure, hold on, grid on
 FFC = angle(exp(-i*w_*M).*AFC1(w_));
 plot(w_, FFC, 'b', 'LineWidth', 1);
-title('ФЧХ')
-xlabel('w'), ylabel('фаза')
+title('Р¤Р§РҐ')
+xlabel('w'), ylabel('С„Р°Р·Р°')
 
-%% Задание 2
+%% Р—Р°РґР°РЅРёРµ 2
 
 synthesize_filter([0 0.6]*pi, [0.8 1]*pi, 5, 1);
 
-%% Задание 3
+%% Р—Р°РґР°РЅРёРµ 3
 
 M_ = 9;
 
@@ -75,9 +75,9 @@ while pass_err > 0.0125 && supp_err > 0.015
         [0.8 1]*pi, M_);
 end
 
-fprintf('Удовлетворяет требованиям при M = %i', M_);
+fprintf('РЈРґРѕРІР»РµС‚РІРѕСЂСЏРµС‚ С‚СЂРµР±РѕРІР°РЅРёСЏРј РїСЂРё M = %i', M_);
 
-%% Задание 4
+%% Р—Р°РґР°РЅРёРµ 4
 
 B = [b flip(b(1:end-1))];
 
@@ -91,7 +91,7 @@ figure, hold on, grid on
 plot(n, X1, 'b--', 'LineWidth', 1)
 plot(n, Y1, 'r', 'LineWidth', 1)
 
-%% Задание 5
+%% Р—Р°РґР°РЅРёРµ 5
 
 B = [b flip(b(1:end-1))];
 
@@ -115,7 +115,7 @@ img(1:end-M,:) = img(M+1:end,:);
 figure
 imshow(uint8(img))
 
-%% вспомогательные функции
+%% РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё
 
 function[b] = find_b(Kd, w, M)
     b = zeros(1, length(w));
